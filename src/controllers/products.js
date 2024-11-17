@@ -36,7 +36,8 @@ export const getProductByIdController = async (req, res) => {
 };
 
 export const createProductController = async (req, res) => {
-  const student = await createProduct(req.body);
+  console.log(req.user);
+  const student = await createProduct({ ...req.body, userId: req.user._id });
 
   res.status(201).json({
     status: 201,

@@ -13,8 +13,10 @@ import {
   updateProductsSchema,
 } from '../validation/products.js';
 import { isValidId } from '../middlewares/isValidId.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
+router.use(authenticate);
 
 router.get('/', ctrlWrapper(getAllProductsController));
 router.get('/:productId', isValidId, ctrlWrapper(getProductByIdController));
