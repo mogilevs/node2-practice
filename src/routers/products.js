@@ -16,27 +16,19 @@ import { isValidId } from '../middlewares/isValidId.js';
 
 const router = Router();
 
-router.get('/products', ctrlWrapper(getAllProductsController));
-router.get(
-  '/products/:productId',
-  isValidId,
-  ctrlWrapper(getProductByIdController),
-);
+router.get('/', ctrlWrapper(getAllProductsController));
+router.get('/:productId', isValidId, ctrlWrapper(getProductByIdController));
 router.post(
-  '/products',
+  '/',
   validateBody(createProductsSchema),
   ctrlWrapper(createProductController),
 );
 router.patch(
-  '/products/:productId',
+  '/:productId',
   isValidId,
   validateBody(updateProductsSchema),
   ctrlWrapper(updateProductController),
 );
-router.delete(
-  '/products/:productId',
-  isValidId,
-  ctrlWrapper(deleteProductController),
-);
+router.delete('/:productId', isValidId, ctrlWrapper(deleteProductController));
 
 export default router;
