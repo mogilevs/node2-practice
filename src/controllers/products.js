@@ -6,9 +6,12 @@ import {
   getProducts,
   updateProduct,
 } from '../services/products.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const getAllProductsController = async (req, res) => {
-  const products = await getProducts();
+  const filter = parseFilterParams(req.query);
+  const products = await getProducts(filter);
+  console.log(filter);
 
   res.status(200).json({
     status: 200,
@@ -59,11 +62,11 @@ export const updateProductController = async (req, res) => {
 
 export const deleteProductController = async (req, res) => {
   const { productId } = req.params;
-    const result = await deleteProduct(productId);
+  const result = await deleteProduct(productId);
 
-    if (!result) {
-      throw createHttpError(404, 'Student not found');
-    }
+  if (!result) {
+    throw createHttpError(404, 'Student not found');
+  }
 
-    res.status(204).send();
+  res.status(204).send();
 };
