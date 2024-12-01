@@ -7,6 +7,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import productsRouter from './routers/products.js';
 import authRouter from './routers/auth.js';
 import cookieParser from 'cookie-parser';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -16,7 +17,7 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(cors());
   app.use(cookieParser());
-
+  app.use('/api-docs', swaggerDocs());
   app.use('/users', authRouter);
   app.use('/products', productsRouter);
 
